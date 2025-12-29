@@ -1,11 +1,11 @@
-from events import Event, days_since
+from events import (
+    Event,
+    days_since,
+    load_json
+)
 
 
-EVENTS = [
-    Event("2010-01-10", "Our doggo joined the lobby", ""),
-    Event("2024-12-27", "New phone", "My friends gifted me a Fairphone"),
-    Event("2024-07-25", "Last time I ate sushi", ""),
-]
+EVENTS_FILE = "./data/events_sample.json"
 
 
 def print_events(events: list[Event]):
@@ -22,4 +22,5 @@ def print_events(events: list[Event]):
 
 
 if __name__ == "__main__":
-    print_events(EVENTS)
+    events = load_json(EVENTS_FILE)
+    print_events(events)
