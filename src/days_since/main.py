@@ -8,7 +8,7 @@ from events import (
 )
 
 
-EVENTS_FILE = "./data/events_sample.json"
+EVENTS_FILE = "./data/events.json"
 
 
 def print_events(events: list[Event], mode: Literal["days", "delta"]):
