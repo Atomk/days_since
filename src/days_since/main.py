@@ -1,6 +1,9 @@
+from typing import Literal
+
 from events import (
     Event,
     days_since,
+    delta_since,
     load_json
 )
 
@@ -8,7 +11,7 @@ from events import (
 EVENTS_FILE = "./data/events_sample.json"
 
 
-def print_events(events: list[Event]):
+def print_events(events: list[Event], mode: Literal["days", "delta"]):
     if not events:
         print("No events to print")
         return
@@ -32,9 +35,14 @@ def print_events(events: list[Event]):
             continue
         dashes_count = (max_len - len(event.title)) + minimum_dashes_count
         line = "-" * dashes_count
-        print(f"{event.title} {line} {elapsed} days ago")
+        if mode == "days":
+            print(f"{event.title} {line} {elapsed} days ago")
+        elif mode == "delta":
+            print(f"{event.title} {line} " + delta_since(event))
+        else:
+            raise ValueError(f"unexpected 'mode' value: {mode}")
 
 
 if __name__ == "__main__":
     events = load_json(EVENTS_FILE)
-    print_events(events)
+    print_events(events, "delta")

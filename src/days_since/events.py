@@ -17,6 +17,39 @@ def days_since(event: Event) -> int:
     return difference.days
 
 
+def delta_since(event: Event) -> str:
+    """Returns a sting representation of the difference between two dates.
+
+    The string will be in the format Ay Bmo Yd where A, B and C are the
+    approximate number of years, months and days elapsed.
+
+    For the sake of simplicity an year is considered to be 365 days and months
+    30 days. Components that equal zero (e.g. 0 years) will be omitted from the
+    result, expect in the case of 0 days passed, where "0d" is returned.
+    """
+    days = days_since(event)
+    if days == 0:
+        return "0d"
+    if days < 0:
+        raise ValueError("event date is in the future!")
+    parts = []
+
+    years = days // 365
+    days -= years * 365
+    if years > 0:
+        parts.append(f"{years}y")
+
+    months = days // 30
+    days -= months * 30
+    if months > 0:
+        parts.append(f"{months}mo")
+
+    if days > 0:
+        parts.append(f"{days}d")
+
+    return " ".join(parts)
+
+
 def save_json(filename, events: list[Event]):
     """Save a list of event objects to a JSON file.
 
