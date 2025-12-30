@@ -9,6 +9,18 @@ EVENTS_FILE = "./data/events_sample.json"
 
 
 def print_events(events: list[Event]):
+    if not events:
+        print("No events to print")
+        return
+
+    # Find the length of the longest title to use it later for alignment
+    max_len = -1
+    for event in events:
+        if len(event.title) > max_len:
+            max_len = len(event.title)
+
+    # The alignment line will always be at least this long
+    minimum_dashes_count = 2
     for event in events:
         try:
             elapsed = days_since(event)
@@ -18,7 +30,9 @@ def print_events(events: list[Event]):
         if elapsed < 0:
             print(f"Error in event: '{event.title}'. Date is in the future!")
             continue
-        print(f"{event.title} -- {elapsed} days ago")
+        dashes_count = (max_len - len(event.title)) + minimum_dashes_count
+        line = "-" * dashes_count
+        print(f"{event.title} {line} {elapsed} days ago")
 
 
 if __name__ == "__main__":
