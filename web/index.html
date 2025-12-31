@@ -13,14 +13,14 @@
             <p id="loading-msg" class="text-center">Loading the Python interpreter...</p>
             <ul class="events hidden"></ul>
         </main>
-        <script type="py" config="./pyscript.toml">
+        <script type="py" config="./pyscript.json">
             from pyscript import document
             from events import load_json, delta_since
 
             # If this script is running it means the interpreter was loaded
             document.getElementById("loading-msg").remove()
 
-            # The JSON file is made available through pyscript.toml
+            # The JSON file is made available through pyscript.json
             events = load_json("events.json")
 
             # Create a list item for each event and add it to the page
