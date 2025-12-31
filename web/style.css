@@ -1,0 +1,30 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.events {
+    padding: 0;
+}
+
+/* Separate each list item with a line */
+.events li {
+    list-style-type: none;
+    padding: .2em 0;
+    border-bottom: 1px dashed #ddd;
+}
+.events li:last-child {
+    border: none;
+}
+
+.events .elapsed {
+    float: right;
+}

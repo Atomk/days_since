@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Days Since</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="module" src="https://pyscript.net/releases/2025.11.2/core.js"></script>
+    </head>
+    <body>
+        <main>
+            <h1 class="text-center">Days Since</h1>
+            <p id="loading-msg" class="text-center">Loading the Python interpreter...</p>
+            <ul class="events hidden"></ul>
+        </main>
+        <script type="py" config="./pyscript.toml">
+            from pyscript import document
+            from events import load_json, delta_since
+
+            # If this script is running it means the interpreter was loaded
+            document.getElementById("loading-msg").remove()
+
+            # The JSON file is made available through pyscript.toml
+            events = load_json("events.json")
+
+            # Create a list item for each event and add it to the page
+            ul = document.querySelector(".events")
+            ul.classList.remove("hidden")
+            for event in events:
+                li = document.createElement("li")
+                li.innerText = event.title
+
+                span = document.createElement("span")
+                span.classList.add("elapsed")
+                span.innerText = delta_since(event)
+
+                li.appendChild(span)
+                ul.appendChild(li)
+            mainEl = document.querySelector("main")
+            mainEl.appendChild(ul)
+        </script>
+    </body>
+</html>

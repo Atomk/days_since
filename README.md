@@ -43,3 +43,16 @@ source .venv/bin/activate
 pip install pytest
 pytest
 ```
+
+## Web
+
+Python on the frontend! Talk about using the wrong tool for the job. This repo provides a web version of the program, reusing much of its code by using [PyScript](https://pyscript.net/). Like its terminal counterpart, the web page provides a read-only visual representation of data in `events.json`.
+
+Launch a local server:
+```sh
+python3 -m http.server 8080
+```
+
+Assuming you launched the server in the project's root, navigate your browser to: http://localhost:8080/web/
+
+The interpreter will take a few seconds to load, this is unfortunate but expected.

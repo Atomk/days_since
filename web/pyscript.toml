@@ -1,0 +1,6 @@
+name = "Days Since"
+
+[files]
+"../src/days_since/main.py" = ""
+"../src/days_since/events.py" = ""
+"../data/events.json" = "events.json"
