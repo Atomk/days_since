@@ -8,9 +8,6 @@ from events import (
 )
 
 
-EVENTS_FILE = "./data/events.json"
-
-
 def print_events(events: list[Event], mode: Literal["days", "delta"]):
     if not events:
         print("No events to print")
@@ -44,5 +41,10 @@ def print_events(events: list[Event], mode: Literal["days", "delta"]):
 
 
 if __name__ == "__main__":
-    events = load_json(EVENTS_FILE)
+    try:
+        events = load_json("./data/events.json")
+    except FileNotFoundError:
+        print("ERROR: no `events.json` found")
+        print("Falling back to the sample file")
+        events = load_json("./data/events_sample.json")
     print_events(events, "delta")
