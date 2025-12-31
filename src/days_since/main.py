@@ -1,4 +1,4 @@
-from typing import Literal
+from enum import StrEnum
 
 from events import (
     Event,
@@ -8,7 +8,12 @@ from events import (
 )
 
 
-def print_events(events: list[Event], mode: Literal["days", "delta"]):
+class PrintMode(StrEnum):
+    days = "days"
+    delta = "delta"
+
+
+def print_events(events: list[Event], mode: PrintMode):
     if not events:
         print("No events to print")
         return
@@ -32,9 +37,9 @@ def print_events(events: list[Event], mode: Literal["days", "delta"]):
             continue
         dashes_count = (max_len - len(event.title)) + minimum_dashes_count
         line = "-" * dashes_count
-        if mode == "days":
+        if mode == PrintMode.days:
             print(f"{event.title} {line} {elapsed} days ago")
-        elif mode == "delta":
+        elif mode == PrintMode.delta:
             print(f"{event.title} {line} " + delta_since(event))
         else:
             raise ValueError(f"unexpected 'mode' value: {mode}")
@@ -47,4 +52,4 @@ if __name__ == "__main__":
         print("ERROR: no `events.json` found")
         print("Falling back to the sample file")
         events = load_json("./data/events_sample.json")
-    print_events(events, "delta")
+    print_events(events, PrintMode.days)

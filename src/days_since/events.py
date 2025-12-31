@@ -1,13 +1,19 @@
 import json
 import datetime as dt
-from dataclasses import dataclass, asdict
 
 
-@dataclass
 class Event:
-    date: str
-    title: str
-    notes: str = ""
+    def __init__(self, date: str, title: str, notes: str = ""):
+        self.date = date
+        self.title = title
+        self.notes = notes
+
+    def __eq__(self, other):
+        return (
+            self.date == other.date
+            and self.title == other.title
+            and self.notes == other.notes
+        )
 
 
 def days_since(event: Event) -> int:
@@ -62,7 +68,7 @@ def save_json(filename, events: list[Event]):
         print("No events to export")
         return
     for event in events:
-        export.append(asdict(event))
+        export.append(event.__dict__)
     # By default non-ASCII characters are converted to their respective
     # codepoint representation, but if would make the JSON unreadable for
     # non-English languages

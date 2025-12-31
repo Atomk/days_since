@@ -70,12 +70,12 @@ What about implementing them as CLI commands? I certainly don't see myself using
 
 It sucks that the projects I want to make and use are full-stack and not just Python, I could not come up with other project ideas simple enough to fit the requirements, and that I actually found interesting, ideally I would have made a fully functional web UI and used Python just for a proper backend (REST API + database) or maybe not.
 
-#### Why is the web page loading so slow?
-- PyScript and the Python interpreter are loaded from an external server which is perhaps intentionally not super fast
-- The Python interpreter is loaded from within PyScript's code and I haven't found an obvious to cache it, so it's downloaded again at each refresh
-- I'm using the [Pyodide](https://pyodide.com/) interpreter (`<script type="py">`) instead of the [MicroPython](https://micropython.org/) interpreter (`<script type="mpy">`). Pyodide has the best support for Python's features and standard library, at the cost of size. MicroPython is much smaller but also supports less Python features and standard modules, and I cannot use it without making some adjustments to the code, which I don't want to do since I'll rewrite this in JavaScript anyway (the right tool for this project)
-    - For reference, MicroPython does not support the "typing" module and the "dataclasses" module
-- This was just a silly experiment and I'm not familiar yet with PyScript so there may be something obvious I missed
+#### Why is Event not a dataclass?
+PyScript provides two [interpeters](https://docs.pyscript.net/2025.11.2/user-guide/architecture/#interpreters): Pyodide (enabled with `<script type="py">`) and MicroPython (enabled with `<script type="mpy">`).
+
+[Pyodide](https://pyodide.com/) has the best support for Python's features and standard library, but is pretty heavy and makes the page load in around 5-7s, which is very annoying.
+
+[MicroPython](https://micropython.org/) is much smaller and loads way faster (~1s) but also supports less Python features and standard modules. One of the unsupported modules is `dataclasses`.
 
 #### This looks too simple. Have you actually learned anything?
 It's very simple in functionality, it wasn't simple in terms of deciding what to make, how to make it, and what "good enough" would look like. When you see the final product everything seems obvious in hindsight and if I hade a precise plan I would have made this in an afternoon and not over multiple days.
