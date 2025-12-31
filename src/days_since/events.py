@@ -11,6 +11,7 @@ class Event:
 
 
 def days_since(event: Event) -> int:
+    """Returns the number of days elapsed since the specified event occurred."""
     date = dt.date.fromisoformat(event.date)
     date_today = dt.date.today()
     difference = date_today - date
@@ -72,6 +73,11 @@ def save_json(filename, events: list[Event]):
 
 
 def load_json(filename) -> list[Event]:
+    """Load a list of Event objects from a JSON file.
+
+    `filename` is the path to the JSON file.
+    If the file does not exist, FileNotFoundError is raised.
+    """
     with open(filename, encoding="utf-8") as fhl:
         imported = json.load(fhl)
     events = []
