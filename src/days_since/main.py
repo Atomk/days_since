@@ -5,6 +5,7 @@ This script is intended to handle only the CLI, so it's not subject to
 PyScript or MicroPython limitations.
 """
 
+import argparse
 from enum import StrEnum
 
 from events import (
@@ -16,6 +17,7 @@ from events import (
 
 
 class PrintMode(StrEnum):
+    date = "date"
     days = "days"
     delta = "delta"
 
@@ -48,15 +50,37 @@ def print_events(events: list[Event], mode: PrintMode):
             print(f"{event.title} {line} {elapsed} days ago")
         elif mode == PrintMode.delta:
             print(f"{event.title} {line} " + delta_since(event))
+        elif mode == PrintMode.date:
+            print(f"{event.title} {line} {event.date}")
         else:
             raise ValueError(f"unexpected 'mode' value: {mode}")
 
 
+def parse_arguments():
+    # TODO use package name and description from the TOML file
+    parser = argparse.ArgumentParser(
+        prog="Days Since",
+        description="A simple program to show time elapsed since past events.",
+    )
+    parser.add_argument(
+        "--mode",
+        type=PrintMode,
+        choices=list(PrintMode),
+        default=PrintMode.delta,
+        help="change how to display the date of each event",
+    )
+
+    args = parser.parse_args()
+    return args.mode
+
+
 if __name__ == "__main__":
+    print_mode = parse_arguments()
+
     try:
         events = load_json("./data/events.json")
     except FileNotFoundError:
         print("ERROR: no `events.json` found")
         print("Falling back to the sample file")
         events = load_json("./data/events_sample.json")
-    print_events(events, PrintMode.days)
+    print_events(events, print_mode)

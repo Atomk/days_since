@@ -20,6 +20,8 @@ cd days_since
 python3 src/days_since/main.py
 ```
 
+Too see CLI options, pass the `--help` argument to the script.
+
 ## Configure
 
 Data is loaded from a `events.json` file located in the `data` directory. When you first clone the repo this file does not exist. You can copy or rename the existing sample file.
