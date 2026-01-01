@@ -1,3 +1,10 @@
+"""
+Entry point for the program when run in a terminal.
+
+This script is intended to handle only the CLI, so it's not subject to
+PyScript or MicroPython limitations.
+"""
+
 from enum import StrEnum
 
 from events import (
